@@ -1,0 +1,8 @@
+
+useDynLib(CCMnet)
+
+importFrom(sna, degree, rgraph, triad.census)
+import(ergm, network)
+
+# Export all names
+exportPattern(".")
