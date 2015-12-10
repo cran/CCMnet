@@ -1,5 +1,14 @@
 
-NS_Multinomial <- function(g, Network_stats, mean_inflate = 0, var_inflate = 1) {
+NS_Multinomial <- function(g, Network_stats, mean_inflate = 0, var_inflate = 1, covPattern = NULL) {
+  if (g$gal$bipartite > 0) {
+    print("Not implemented")
+  } else {
+    NS_Multinomial_uni(g, Network_stats, mean_inflate, var_inflate, covPattern = NULL)    
+  }
+}
+
+
+NS_Multinomial_uni <- function(g, Network_stats, mean_inflate = 0, var_inflate = 1, covPattern = NULL) {
   
   error = 0
   
@@ -53,4 +62,7 @@ NS_Multinomial <- function(g, Network_stats, mean_inflate = 0, var_inflate = 1) 
   }
   return(list(mean_NS, (var_x*var_inflate_num) ))
 }
+
+
+
 

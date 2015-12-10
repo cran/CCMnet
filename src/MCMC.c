@@ -11,6 +11,7 @@
 #include "MCMC.h"
 #include <math.h> /* MOD ADDED RAVI */
 #include "MCMC_prob.h"
+#include "MCMC_prob_bi.h"
 /*****************
  Note on undirected networks:  For j<k, edge {j,k} should be stored
  as (j,k) rather than (k,j).  In other words, only directed networks
@@ -221,8 +222,9 @@ if (print_info_MCMCsample == 1) {
 if (print_info_MCMCsample == 1) {  
         Rprintf("Going to: MH\n");
 }
-  
-  if(MetropolisHastings(MHp, theta, networkstatistics, burnin, &staken,
+
+  if (nwp->bipartite == 0) {
+      if(MetropolisHastings(MHp, theta, networkstatistics, burnin, &staken,
 			fVerbose, nwp, m,
         prob_type,   /*MOD ADDED RAVI###########*/
         maxdegree,
@@ -240,7 +242,26 @@ if (print_info_MCMCsample == 1) {
         evolutionvar
           )!=MCMC_OK)
     return MCMC_MH_FAILED;
-
+  } else {
+      if(MetropolisHastings_bi(MHp, theta, networkstatistics, burnin, &staken,
+			fVerbose, nwp, m,
+        prob_type,   /*MOD ADDED RAVI###########*/
+        maxdegree,
+        meanvalues,
+        varvalues,
+        BayesInference,
+        TransNW,
+        Ia, 
+        Il, 
+        R_times, 
+        beta_a, 
+        beta_l,
+        NetworkForecast,
+        evolutionrate,
+        evolutionvar
+          )!=MCMC_OK)
+    return MCMC_MH_FAILED;      
+  }
 if (print_info_MCMCsample == 1) {  
   Rprintf("Just left: MH\n");
 }
@@ -284,7 +305,7 @@ if (print_info_MCMCsample == 1) {
 //  Rprintf("MCMCSample %d %d %f\n",j,nwp->nedges,networkstatistics[j]);
 //}
 
-
+  if (nwp->bipartite == 0) {
       if(MetropolisHastings(MHp, theta, networkstatistics, interval, &staken,
 			    fVerbose, nwp, m,
         prob_type,   /*MOD ADDED RAVI###########*/
@@ -303,6 +324,26 @@ if (print_info_MCMCsample == 1) {
         evolutionvar
               )!=MCMC_OK)
 	return MCMC_MH_FAILED;
+  } else {
+      if(MetropolisHastings_bi(MHp, theta, networkstatistics, interval, &staken,
+			    fVerbose, nwp, m,
+        prob_type,   /*MOD ADDED RAVI###########*/
+        maxdegree,
+        meanvalues,
+        varvalues,
+        BayesInference,
+        TransNW,
+        Ia, 
+        Il, 
+        R_times, 
+        beta_a, 
+        beta_l,
+        NetworkForecast,
+        evolutionrate,
+        evolutionvar
+              )!=MCMC_OK)
+	return MCMC_MH_FAILED;      
+  }
       if(nmax!=0 && nwp->nedges >= nmax-1){
 	return MCMC_TOO_MANY_EDGES;
       }

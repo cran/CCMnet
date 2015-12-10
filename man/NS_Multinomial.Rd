@@ -10,7 +10,8 @@ Calculate network statistic and covariance matrix, which is based on a multinomi
 NS_Multinomial(g,
 		   Network_stats, 
 		   mean_inflate = 0, 
-		   var_inflate = 1
+		   var_inflate = 1,
+		   covPattern = NULL
 		 )
 }
 \arguments{
@@ -18,6 +19,7 @@ NS_Multinomial(g,
 \item{Network_stats}{Either 'DegreeDist' or 'DegMixing'.}
 \item{mean_inflate}{Add small amount to remove zero values from degree mixing matrix entries.}
 \item{var_inflate}{Multiply the variance by a constant.  Used to avoid signular covariance matrices.}
+\item{covPattern}{Currently not used.}
 }
 \value{
 A list of length 2 containing:

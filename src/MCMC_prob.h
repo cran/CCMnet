@@ -198,7 +198,10 @@ if (print_info_MH == 1) {
                     pdf_gaussian_nwp = -0.5 * pow( (log(nwp_density)-meanvalues[0]), 2.0 )/varvalues[0];
                     pdf_gaussian_MHp = -0.5 * pow( (log(MHp_density)-meanvalues[0]), 2.0 )/varvalues[0];
                 }
-
+                if ((prob_type[0] == 0) && (prob_type[1] == 0) && (prob_type[2] == 0) && (prob_type[3] == 0) && (prob_type[4] == 99)){ //Non-parametric
+                    pdf_gaussian_nwp = log(meanvalues[(int)networkstatistics[0]]);
+                    pdf_gaussian_MHp = log(meanvalues[(int)MHp_nedges]);
+                }
                 /* BEGIN: NETWORK STABILITY CODE*/
 
                 /* REMOVED */
@@ -2234,6 +2237,29 @@ if (print_info == 1) {
             
 //Rprintf("Probs (before cutoff): %f %f %f %f\n", prob_g_g2, prob_g2_g, pdf_gaussian_nwp, pdf_gaussian_MHp);
             
+                            
+            if (!isfinite(pdf_gaussian_nwp)) {
+                    prob_g2_g = 1;
+                    pdf_gaussian_MHp = 0;
+                    prob_g_g2 = 1;
+                    pdf_gaussian_nwp = log(0);
+
+if (print_info_MH == 1) {                
+Rprintf("NWP INVALID 1: %f %f %f %f\n", prob_g_g2, prob_g2_g, pdf_gaussian_nwp, pdf_gaussian_MHp);
+}                        
+            }
+
+            if (pdf_gaussian_nwp != pdf_gaussian_nwp) {
+                    prob_g2_g = 1;
+                    pdf_gaussian_MHp = 0;
+                    prob_g_g2 = 1;
+                    pdf_gaussian_nwp = log(0);
+
+if (print_info_MH == 1) {                
+Rprintf("NWP INVALID 2: %f %f %f %f\n", prob_g_g2, prob_g2_g, pdf_gaussian_nwp, pdf_gaussian_MHp);
+}                        
+            }
+
             cutoff = (log(prob_g2_g) + pdf_gaussian_MHp) - (log(prob_g_g2) + pdf_gaussian_nwp) + MHp->logratio;
             
 //Bayesian: BEGIN//
