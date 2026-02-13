@@ -1,13 +1,27 @@
 Package: CCMnet
-Version: 0.0-3
-Date: 2014-07-22
-Title: Simulate Congruence Class Model for Networks
-Author: Ravi Goyal, with contributions from Mark S. Handcock (ergm R package), David R. Hunter (ergm R package), Carter T. Butts (ergm R package), Steven M. Goodreau (ergm R package), Pavel N. Krivitsky (ergm R package), Martina Morris (ergm R package), Nicole Bohme Carnegie (ergm-user term degmix)
-Maintainer: Ravi Goyal <ravi.goyal@mail.harvard.edu>
-Depends: sna, network, ergm, R(>= 2.12.2)
-Description: Tools to simulate networks based on Congruence Class models.
-License: GPL-3 + file LICENSE
-Packaged: 2015-12-10 00:15:29 UTC; RGOYAL
+Type: Package
+Title: Congruence Class Models for Networks
+Version: 0.1.4
+Authors@R: c(person("Ravi", "Goyal", email = "ravi.j.goyal@gmail.com",
+                  role = c("aut", "cre")),
+             person("Statnet Development Team", 
+                  role = c("ctb", "cph")))
+Description: Provides an implementation of Congruence Class Models for 
+    generating  networks. It facilitates sampling networks based 
+    on specific topological properties and attribute mixing patterns using 
+    a Markov Chain Monte Carlo framework. The implementation builds upon code 
+    from the 'ergm' package; see Handcock et al. (2008) <doi:10.18637/jss.v024.i01>. 
+License: GPL-3
+Encoding: UTF-8
+Imports: dplyr, ergm, ggplot2, gtools, igraph, intergraph, kableExtra,
+        mvtnorm, network, RBesT, rlang, stats, tibble, tidyr, utils
+Suggests: knitr, rmarkdown, testthat
+VignetteBuilder: knitr
+RoxygenNote: 7.3.2
 NeedsCompilation: yes
+Packaged: 2026-02-11 21:40:52 UTC; ravigoyal
+Author: Ravi Goyal [aut, cre],
+  Statnet Development Team [ctb, cph]
+Maintainer: Ravi Goyal <ravi.j.goyal@gmail.com>
 Repository: CRAN
-Date/Publication: 2015-12-10 09:49:11
+Date/Publication: 2026-02-13 16:40:14 UTC

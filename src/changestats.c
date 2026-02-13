@@ -9,11 +9,6 @@
  *  Copyright 2012 the statnet development team
  */
 
-/*
- * Includes code written by Nicole Bohme Carnegie. Email: carnegie@hsph.harvard.edu
- * See d_degmix function
- */
-
 #include "changestats.h"
 
 /********************  changestats:  A    ***********/
@@ -1297,7 +1292,7 @@ void edgewise_path_recurse(Network *nwp, Vertex dest, Vertex curnode,
   if((availcount>0)&&(curlen<maxlen-2)){
     if(availcount>1){    /*Remove the current node from the available list*/
       if((newavail=(Vertex *)malloc(sizeof(Vertex)*(availcount-1)))==NULL){
-        Rprintf("Unable to allocate %d bytes for available node list in edgewise_path_recurse.  Trying to terminate recursion gracefully, but your path count is probably wrong.\n",sizeof(Vertex)*(availcount-1));
+        Rprintf("Unable to allocate %zu bytes for available node list in edgewise_path_recurse.  Trying to terminate recursion gracefully, but your path count is probably wrong.\n",sizeof(Vertex)*(availcount-1));
         return;
       }
       j=0;
@@ -1349,7 +1344,7 @@ void edgewise_cycle_census(Network *nwp, Vertex tail, Vertex head,
   
   /*Perform the recursive path count*/
   if((availnodes=(Vertex *)malloc(sizeof(Vertex)*(n-2)))==NULL){
-    Rprintf("Unable to allocate %d bytes for available node list in edgewise_cycle_census.  Exiting.\n",sizeof(Vertex)*(n-2));
+    Rprintf("Unable to allocate %zu bytes for available node list in edgewise_cycle_census.  Exiting.\n",sizeof(Vertex)*(n-2));
     return;
   }
   j=0;                             /*Initialize the list of available nodes*/
@@ -1543,7 +1538,15 @@ D_CHANGESTAT_FN(d_degree_by_attr) {
     taildeg = od[tail] + id[tail];
     headdeg = od[head] + id[head];
     tailattr = INPUT_PARAM[2*N_CHANGE_STATS + tail - 1]; 
-    headattr = INPUT_PARAM[2*N_CHANGE_STATS + head - 1]; 
+    headattr = INPUT_PARAM[2*N_CHANGE_STATS + head - 1];
+    
+    // Debug
+    //printf("DEBUG: Nodes %d,%d | Degs: %d,%d | Attrs: %d,%d | Indices: %d,%d | echange: %d\n", 
+    //       (int)tail, (int)head, (int)taildeg, (int)headdeg, 
+    //       (int)tailattr, (int)headattr, 
+    //       2*N_CHANGE_STATS + (int)tail - 1, 2*N_CHANGE_STATS + (int)head - 1,
+    //       echange);
+    
     for(j = 0; j < N_CHANGE_STATS; j++) {
       d = (Vertex)INPUT_PARAM[2*j];
       testattr = INPUT_PARAM[2*j + 1]; 
@@ -5611,10 +5614,6 @@ D_CHANGESTAT_FN(d_nfstab) {
     }
   UNDO_PREVIOUS_TOGGLES(i);
 }
-
-/*
- * Code by Nicole Bohme Carnegie. Email: carnegie@hsph.harvard.edu
- */
 
 D_CHANGESTAT_FN(d_degmix){
   Vertex tail, head, taildeg, headdeg, node3, node3deg;
