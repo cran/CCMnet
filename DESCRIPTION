@@ -1,7 +1,7 @@
 Package: CCMnet
 Type: Package
 Title: Congruence Class Models for Networks
-Version: 0.1.4
+Version: 0.1.6
 Authors@R: c(person("Ravi", "Goyal", email = "ravi.j.goyal@gmail.com",
                   role = c("aut", "cre")),
              person("Statnet Development Team", 
@@ -19,9 +19,9 @@ Suggests: knitr, rmarkdown, testthat
 VignetteBuilder: knitr
 RoxygenNote: 7.3.2
 NeedsCompilation: yes
-Packaged: 2026-02-11 21:40:52 UTC; ravigoyal
+Packaged: 2026-02-17 16:49:23 UTC; ravigoyal
 Author: Ravi Goyal [aut, cre],
   Statnet Development Team [ctb, cph]
 Maintainer: Ravi Goyal <ravi.j.goyal@gmail.com>
 Repository: CRAN
-Date/Publication: 2026-02-13 16:40:14 UTC
+Date/Publication: 2026-02-18 09:40:16 UTC
